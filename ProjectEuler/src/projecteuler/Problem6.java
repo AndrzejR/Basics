@@ -21,18 +21,16 @@ public class Problem6 {
 	 * 
 	 * Find the difference between the sum of the squares of the first one
 	 * hundred natural numbers and the square of the sum.
+	 * 
+	 * Upgraded solution according to p.e. notes.
 	 */
 	public static void main(String[] args) {
 
-		int sum1 = 0, sum2 = 0;
+		int sum1 = 0, sum2 = 0, upTo = 100;
 
-		for (int i = 1; i <= 100; i++) {
-			sum1 += i * i;
-		}
+		sum1 = (2 * upTo + 1) * (upTo + 1) * upTo / 6;
 
-		for (int i = 1; i <= 100; i++) {
-			sum2 += i;
-		}
+		sum2 = upTo * (upTo + 1) / 2;
 		sum2 = sum2 * sum2;
 
 		System.out.println(sum1);
