@@ -57,6 +57,39 @@ public class BinaryTree {
 	}
 
 	/**
+	 * Checks if a given value is contained in the tree.
+	 * 
+	 * @param value
+	 *            the value to search for in the tree
+	 * @return true if the value is contained in the tree, false otherwise *
+	 */
+	public boolean contains(int value) {
+		return containsRecursion(value, root);
+	}
+
+	/**
+	 * 
+	 * Main recursive search method.
+	 * 
+	 * @param value
+	 * @param current
+	 * @return
+	 */
+	private boolean containsRecursion(int value, TreeNode current) {
+		if (current == null) {
+			return false;
+		} else if (current.data == value) {
+			return true;
+		} else {
+			if (value > current.data) {
+				return containsRecursion(value, current.right);
+			} else {
+				return containsRecursion(value, current.left);
+			}
+		}
+	}
+
+	/**
 	 * Test method
 	 */
 	public static void main(String[] args) {
@@ -65,6 +98,15 @@ public class BinaryTree {
 		bt.insert(42);
 		bt.insert(13);
 		bt.insert(666);
+		bt.insert(11);
+		bt.insert(10);
+
+		System.out.println("1: " + bt.contains(1));
+		System.out.println("10: " + bt.contains(10));
+		System.out.println("42: " + bt.contains(42));
+		System.out.println("13: " + bt.contains(13));
+		System.out.println("666: " + bt.contains(666));
+		System.out.println("123456: " + bt.contains(123456));
 
 	}
 
