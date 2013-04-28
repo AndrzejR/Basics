@@ -90,6 +90,37 @@ public class BinaryTree {
 	}
 
 	/**
+	 * Finds the parent node of the node containing the given value.
+	 * 
+	 * @param value
+	 * @param current
+	 * @return reference to the parent node, null if the value doesn't exist in
+	 *         the tree, or it is contained in the root node
+	 */
+	private TreeNode findParent(int value, TreeNode current) {
+		if (root.data == value) {
+			return null;
+		}
+		if (value < current.data) {
+			if (current.left == null) {
+				return null;
+			} else if (current.left.data == value) {
+				return current;
+			} else {
+				return findParent(value, current.left);
+			}
+		} else {
+			if (current.right == null) {
+				return null;
+			} else if (current.right.data == value) {
+				return current;
+			} else {
+				return findParent(value, current.right);
+			}
+		}
+	}
+
+	/**
 	 * Test method
 	 */
 	public static void main(String[] args) {
@@ -107,6 +138,10 @@ public class BinaryTree {
 		System.out.println("13: " + bt.contains(13));
 		System.out.println("666: " + bt.contains(666));
 		System.out.println("123456: " + bt.contains(123456));
+		
+		System.out.println(bt.findParent(42, bt.root));
+		System.out.println(bt.findParent(13, bt.root).data);
+		System.out.println(bt.findParent(10, bt.root).data);
 
 	}
 
