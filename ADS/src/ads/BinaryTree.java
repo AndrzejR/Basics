@@ -224,6 +224,66 @@ public class BinaryTree {
 	}
 
 	/**
+	 * findMin and findMax could potentially return the value instead of the
+	 * node, but then it creates a problem when the tree is empty - throwing an
+	 * exception can be a solution to this problem.
+	 */
+
+	/**
+	 * Finds the node with the minimum value.
+	 * 
+	 * @return Node with minimum value.
+	 */
+	public TreeNode findMin() {
+		if (root == null) {
+			return null;
+		}
+		return findMinRecursion(root);
+
+	}
+
+	/**
+	 * Recursive logic for findMin method.
+	 * 
+	 * @param current
+	 * @return
+	 */
+	private TreeNode findMinRecursion(TreeNode current) {
+		if (current.left == null) {
+			return current;
+		} else {
+			return findMinRecursion(current.left);
+		}
+	}
+
+	/**
+	 * Finds the node with the maximum value.
+	 * 
+	 * @return Node with maximum value.
+	 */
+	public TreeNode findMax() {
+		if (root == null) {
+			return null;
+		}
+		return findMaxRecursion(root);
+
+	}
+
+	/**
+	 * Recursive logic for findMax method.
+	 * 
+	 * @param current
+	 * @return
+	 */
+	private TreeNode findMaxRecursion(TreeNode current) {
+		if (current.right == null) {
+			return current;
+		} else {
+			return findMaxRecursion(current.right);
+		}
+	}
+
+	/**
 	 * Test method
 	 */
 	public static void main(String[] args) {
@@ -262,10 +322,10 @@ public class BinaryTree {
 		System.out.println();
 
 		// remove test
-		int vToRemove = 42;
-		System.out.println(vToRemove + ": " + bt.contains(vToRemove));
-		System.out.println("Removing " + vToRemove);
-		bt.remove(vToRemove);
+		// int vToRemove = 42;
+		// System.out.println(vToRemove + ": " + bt.contains(vToRemove));
+		// System.out.println("Removing " + vToRemove);
+		// bt.remove(vToRemove);
 
 		System.out.println("42: " + bt.contains(42));
 		System.out.println("10: " + bt.contains(10));
@@ -276,6 +336,9 @@ public class BinaryTree {
 		System.out.println("4: " + bt.contains(4));
 		System.out.println("666: " + bt.contains(666));
 		System.out.println();
+
+		System.out.println("Min: " + bt.findMin().data);
+		System.out.println("Max: " + bt.findMax().data);
 
 	}
 
