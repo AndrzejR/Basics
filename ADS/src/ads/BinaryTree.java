@@ -1,5 +1,7 @@
 package ads;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 /**
  * 
  * A simple implementation of a binary search tree.
@@ -179,48 +181,49 @@ public class BinaryTree {
 	 *         not exist in the tree.
 	 */
 	public boolean remove(int value) {
-		TreeNode nodeToRemove = findNode(value);
-		if (nodeToRemove == null) {
-			return false;
-		}
-		TreeNode parent = findParent(value);
-		if (root.left == null && root.right == null) {
-			root = null;
-		} else if (nodeToRemove.left == null && nodeToRemove.right == null) {
-			if (value < parent.data) {
-				parent.left = null;
-			} else {
-				parent.right = null;
-			}
-		} else if (nodeToRemove.left == null) {
-			if (value < parent.data) {
-				parent.left = nodeToRemove.right;
-			} else {
-				parent.right = nodeToRemove.right;
-			}
-		} else if (nodeToRemove.right == null) {
-			if (value < parent.data) {
-				parent.left = nodeToRemove.left;
-			} else {
-				parent.right = nodeToRemove.left;
-			}
-		} else {
-			TreeNode largestValue = nodeToRemove.left;
-			boolean right = false;
-			while (largestValue.right != null) {
-				largestValue = largestValue.right;
-				right = true;
-			}
-			// bug bug bug !!!
-			if (right) {
-				findParent(largestValue.data).right = null;
-			} else {
-				findParent(largestValue.data).left = null;
-			}
-			nodeToRemove.data = largestValue.data;
-		}
-
-		return true;
+		throw new NotImplementedException();
+//		TreeNode nodeToRemove = findNode(value);
+//		if (nodeToRemove == null) {
+//			return false;
+//		}
+//		TreeNode parent = findParent(value);
+//		if (root.left == null && root.right == null) {
+//			root = null;
+//		} else if (nodeToRemove.left == null && nodeToRemove.right == null) {
+//			if (value < parent.data) {
+//				parent.left = null;
+//			} else {
+//				parent.right = null;
+//			}
+//		} else if (nodeToRemove.left == null) {
+//			if (value < parent.data) {
+//				parent.left = nodeToRemove.right;
+//			} else {
+//				parent.right = nodeToRemove.right;
+//			}
+//		} else if (nodeToRemove.right == null) {
+//			if (value < parent.data) {
+//				parent.left = nodeToRemove.left;
+//			} else {
+//				parent.right = nodeToRemove.left;
+//			}
+//		} else {
+//			TreeNode largestValue = nodeToRemove.left;
+//			boolean right = false;
+//			while (largestValue.right != null) {
+//				largestValue = largestValue.right;
+//				right = true;
+//			}
+//			// bug bug bug !!!
+//			if (right) {
+//				findParent(largestValue.data).right = null;
+//			} else {
+//				findParent(largestValue.data).left = null;
+//			}
+//			nodeToRemove.data = largestValue.data;
+//		}
+//
+//		return true;
 	}
 
 	/**
