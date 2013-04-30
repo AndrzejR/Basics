@@ -64,15 +64,16 @@ public class BinaryTree {
 	 * @return True if the value is contained in the tree, false otherwise.
 	 */
 	public boolean contains(int value) {
-		if (findNode(value)!=null){
+		if (findNode(value) != null) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	/**	 
-	 * Main recursive search method. Deprecated. ;) Used to be used by contains method.
+	/**
+	 * Main recursive search method. Deprecated. ;) Used to be used by contains
+	 * method.
 	 * 
 	 * @param value
 	 * @param current
@@ -170,6 +171,59 @@ public class BinaryTree {
 	}
 
 	/**
+	 * Removes node with the given value from the tree.
+	 * 
+	 * @param value
+	 *            Data of the node to remove.
+	 * @return True if the value existed and was removed, false if the value did
+	 *         not exist in the tree.
+	 */
+	public boolean remove(int value) {
+		TreeNode nodeToRemove = findNode(value);
+		if (nodeToRemove == null) {
+			return false;
+		}
+		TreeNode parent = findParent(value);
+		if (root.left == null && root.right == null) {
+			root = null;
+		} else if (nodeToRemove.left == null && nodeToRemove.right == null) {
+			if (value < parent.data) {
+				parent.left = null;
+			} else {
+				parent.right = null;
+			}
+		} else if (nodeToRemove.left == null) {
+			if (value < parent.data) {
+				parent.left = nodeToRemove.right;
+			} else {
+				parent.right = nodeToRemove.right;
+			}
+		} else if (nodeToRemove.right == null) {
+			if (value < parent.data) {
+				parent.left = nodeToRemove.left;
+			} else {
+				parent.right = nodeToRemove.left;
+			}
+		} else {
+			TreeNode largestValue = nodeToRemove.left;
+			boolean right = false;
+			while (largestValue.right != null) {
+				largestValue = largestValue.right;
+				right = true;
+			}
+			// bug bug bug !!!
+			if (right) {
+				findParent(largestValue.data).right = null;
+			} else {
+				findParent(largestValue.data).left = null;
+			}
+			nodeToRemove.data = largestValue.data;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Test method
 	 */
 	public static void main(String[] args) {
@@ -178,13 +232,20 @@ public class BinaryTree {
 		bt.insert(42);
 		bt.insert(13);
 		bt.insert(666);
-		bt.insert(11);
 		bt.insert(10);
+		bt.insert(11);
+		bt.insert(7);
+		bt.insert(9);
+		bt.insert(4);
 
 		System.out.println("1: " + bt.contains(1));
 		System.out.println("10: " + bt.contains(10));
 		System.out.println("42: " + bt.contains(42));
 		System.out.println("13: " + bt.contains(13));
+		System.out.println("11: " + bt.contains(11));
+		System.out.println("7: " + bt.contains(7));
+		System.out.println("9: " + bt.contains(9));
+		System.out.println("4: " + bt.contains(4));
 		System.out.println("666: " + bt.contains(666));
 		System.out.println("123456: " + bt.contains(123456));
 		System.out.println();
@@ -198,6 +259,22 @@ public class BinaryTree {
 		System.out.println(bt.findNode(1));
 		System.out.println(bt.findNode(42));
 		System.out.println(bt.findNode(666));
+		System.out.println();
+
+		// remove test
+		int vToRemove = 42;
+		System.out.println(vToRemove + ": " + bt.contains(vToRemove));
+		System.out.println("Removing " + vToRemove);
+		bt.remove(vToRemove);
+
+		System.out.println("42: " + bt.contains(42));
+		System.out.println("10: " + bt.contains(10));
+		System.out.println("13: " + bt.contains(13));
+		System.out.println("11: " + bt.contains(11));
+		System.out.println("7: " + bt.contains(7));
+		System.out.println("9: " + bt.contains(9));
+		System.out.println("4: " + bt.contains(4));
+		System.out.println("666: " + bt.contains(666));
 		System.out.println();
 
 	}
