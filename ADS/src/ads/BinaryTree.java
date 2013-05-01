@@ -1,7 +1,5 @@
 package ads;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 /**
  * 
  * A simple implementation of a binary search tree.
@@ -297,6 +295,53 @@ public class BinaryTree {
 	}
 
 	/**
+	 * Preorder traversal - visit the root first, the left subtree, and then the
+	 * right subtree.
+	 */
+	public void traversePreorder() {
+		traversePreorderHelper(root);
+	}
+
+	private void traversePreorderHelper(TreeNode current) {
+		if (current != null) {
+			System.out.println(current.data);
+			traversePreorderHelper(current.left);
+			traversePreorderHelper(current.right);
+		}
+	}
+
+	/**
+	 * Postorder traversal - left subtree first, then right, finally the root.
+	 */
+	public void traversePostorder() {
+		traversePostorderHelper(root);
+	}
+
+	private void traversePostorderHelper(TreeNode current) {
+		if (current != null) {
+			traversePostorderHelper(current.left);
+			traversePostorderHelper(current.right);
+			System.out.println(current.data);
+		}
+	}
+
+	/**
+	 * Inorder traversal - left subtree, then root, finally right subtree.
+	 * Returns values in comparison order.
+	 */
+	public void traverseInorder() {
+		traverseInorderHelper(root);
+	}
+
+	private void traverseInorderHelper(TreeNode current) {
+		if (current != null) {
+			traverseInorderHelper(current.left);
+			System.out.println(current.data);
+			traverseInorderHelper(current.right);
+		}
+	}
+
+	/**
 	 * Test method
 	 */
 	public static void main(String[] args) {
@@ -334,24 +379,37 @@ public class BinaryTree {
 		System.out.println(bt.findNode(666));
 		System.out.println();
 
-		// remove test
-		int vToRemove = 42;
-		System.out.println(vToRemove + ": " + bt.contains(vToRemove));
-		System.out.println("Removing " + vToRemove);
-		bt.remove(vToRemove);
-
-		System.out.println("42: " + bt.contains(42));
-		System.out.println("10: " + bt.contains(10));
-		System.out.println("13: " + bt.contains(13));
-		System.out.println("11: " + bt.contains(11));
-		System.out.println("7: " + bt.contains(7));
-		System.out.println("9: " + bt.contains(9));
-		System.out.println("4: " + bt.contains(4));
-		System.out.println("666: " + bt.contains(666));
+		System.out.println("Preorder Traverse:");
+		bt.traversePreorder();
 		System.out.println();
+
+		System.out.println("Postorder Traverse:");
+		bt.traversePostorder();
+		System.out.println();
+		
+		System.out.println("Inorder Traverse:");
+		bt.traverseInorder();
+		System.out.println();
+
+		// remove test
+		// int vToRemove = 42;
+		// System.out.println(vToRemove + ": " + bt.contains(vToRemove));
+		// System.out.println("Removing " + vToRemove);
+		// bt.remove(vToRemove);
+		//
+		// System.out.println("42: " + bt.contains(42));
+		// System.out.println("10: " + bt.contains(10));
+		// System.out.println("13: " + bt.contains(13));
+		// System.out.println("11: " + bt.contains(11));
+		// System.out.println("7: " + bt.contains(7));
+		// System.out.println("9: " + bt.contains(9));
+		// System.out.println("4: " + bt.contains(4));
+		// System.out.println("666: " + bt.contains(666));
+		// System.out.println();
 
 		System.out.println("Min: " + bt.findMin().data);
 		System.out.println("Max: " + bt.findMax().data);
+		System.out.println();
 
 	}
 
