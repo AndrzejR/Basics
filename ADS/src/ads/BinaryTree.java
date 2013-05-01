@@ -181,49 +181,59 @@ public class BinaryTree {
 	 *         not exist in the tree.
 	 */
 	public boolean remove(int value) {
-		throw new NotImplementedException();
-//		TreeNode nodeToRemove = findNode(value);
-//		if (nodeToRemove == null) {
-//			return false;
-//		}
-//		TreeNode parent = findParent(value);
-//		if (root.left == null && root.right == null) {
-//			root = null;
-//		} else if (nodeToRemove.left == null && nodeToRemove.right == null) {
-//			if (value < parent.data) {
-//				parent.left = null;
-//			} else {
-//				parent.right = null;
-//			}
-//		} else if (nodeToRemove.left == null) {
-//			if (value < parent.data) {
-//				parent.left = nodeToRemove.right;
-//			} else {
-//				parent.right = nodeToRemove.right;
-//			}
-//		} else if (nodeToRemove.right == null) {
-//			if (value < parent.data) {
-//				parent.left = nodeToRemove.left;
-//			} else {
-//				parent.right = nodeToRemove.left;
-//			}
-//		} else {
-//			TreeNode largestValue = nodeToRemove.left;
-//			boolean right = false;
-//			while (largestValue.right != null) {
-//				largestValue = largestValue.right;
-//				right = true;
-//			}
-//			// bug bug bug !!!
-//			if (right) {
-//				findParent(largestValue.data).right = null;
-//			} else {
-//				findParent(largestValue.data).left = null;
-//			}
-//			nodeToRemove.data = largestValue.data;
-//		}
-//
-//		return true;
+		TreeNode nodeToRemove = findNode(value);
+		if (nodeToRemove == null) {
+			return false;
+		}
+		TreeNode parent = findParent(value);
+		if (root.left == null && root.right == null) {
+			root = null;
+		} else if (nodeToRemove.left == null && nodeToRemove.right == null) {
+			if (value < parent.data) {
+				parent.left = null;
+			} else {
+				parent.right = null;
+			}
+		} else if (nodeToRemove.left == null) {
+			if (value < parent.data) {
+				parent.left = nodeToRemove.right;
+			} else {
+				parent.right = nodeToRemove.right;
+			}
+		} else if (nodeToRemove.right == null) {
+			if (value < parent.data) {
+				parent.left = nodeToRemove.left;
+			} else {
+				parent.right = nodeToRemove.left;
+			}
+		} else {
+
+			TreeNode largestValue = nodeToRemove.left;
+
+			while (largestValue.right != null) {
+				largestValue = largestValue.right;
+			}
+
+			/**
+			 * Need to take care of the special cases when the largest value
+			 * node is the only node in the left tree of the node to remove or
+			 * it has children but it is the left child of the node to remove.
+			 */
+			TreeNode parentOfLargest = findParent(largestValue.data);
+			if (parentOfLargest.left == largestValue) {
+				if (largestValue.left == null) {
+					parentOfLargest.left = null;
+				} else {
+					parentOfLargest.left = largestValue.left;
+				}
+			} else {
+				parentOfLargest.right = null;
+			}
+
+			nodeToRemove.data = largestValue.data;
+		}
+
+		return true;
 	}
 
 	/**
@@ -325,10 +335,10 @@ public class BinaryTree {
 		System.out.println();
 
 		// remove test
-		// int vToRemove = 42;
-		// System.out.println(vToRemove + ": " + bt.contains(vToRemove));
-		// System.out.println("Removing " + vToRemove);
-		// bt.remove(vToRemove);
+		int vToRemove = 42;
+		System.out.println(vToRemove + ": " + bt.contains(vToRemove));
+		System.out.println("Removing " + vToRemove);
+		bt.remove(vToRemove);
 
 		System.out.println("42: " + bt.contains(42));
 		System.out.println("10: " + bt.contains(10));
