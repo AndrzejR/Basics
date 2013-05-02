@@ -1,8 +1,10 @@
 package ads;
 
+import java.util.ArrayDeque;
+
 /**
  * 
- * A simple implementation of a binary search tree.
+ * A simple implementation of a binary search tree (unbalanced).
  * 
  * @author Andrzej Ruszczewski
  * 
@@ -342,6 +344,32 @@ public class BinaryTree {
 	}
 
 	/**
+	 * Breadth first traversal - yields all the nodes of the same depth, before
+	 * any deeper ones.
+	 */
+	public void traverseBreadth(){
+		traverseBreadthHelper(root);
+	}
+	
+	private void traverseBreadthHelper(TreeNode current){
+		ArrayDeque<TreeNode> deq = new ArrayDeque<TreeNode>();
+		while (current!=null){
+			System.out.println(current.data);
+			if (current.left!=null){
+				deq.add(current.left);
+			}
+			if (current.right!=null){
+				deq.add(current.right);
+			}
+			if (!deq.isEmpty()){
+				current = deq.remove();
+			} else {
+				current = null;
+			}
+		}
+	}
+
+	/**
 	 * Test method
 	 */
 	public static void main(String[] args) {
@@ -386,12 +414,18 @@ public class BinaryTree {
 		System.out.println("Postorder Traverse:");
 		bt.traversePostorder();
 		System.out.println();
-		
+
 		System.out.println("Inorder Traverse:");
 		bt.traverseInorder();
 		System.out.println();
+		
+		System.out.println("Breadth First Traverse:");
+		bt.traverseBreadth();
+		System.out.println();
 
-		// remove test
+		/**
+		 *  remove() test
+		 */
 		// int vToRemove = 42;
 		// System.out.println(vToRemove + ": " + bt.contains(vToRemove));
 		// System.out.println("Removing " + vToRemove);
