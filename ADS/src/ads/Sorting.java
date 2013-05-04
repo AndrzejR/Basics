@@ -1,5 +1,9 @@
 package ads;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * 
  * Some implementations of different sorting algorithms.
@@ -7,7 +11,43 @@ package ads;
  * @author Andrzej Ruszczewski
  * 
  */
-public class Sorting {
+public class Sorting<T extends Comparable<T>> {
+
+	/**
+	 * Quicksort not in place. Fast, but needs extra memory.
+	 * 
+	 * @param list
+	 * @return
+	 */
+	public List<T> quickSort(List<T> list) {
+
+		if (list.size() < 1) {
+			return list;
+		}
+
+		T pivot = list.get(0);
+
+		List<T> less = new LinkedList<T>();
+		List<T> equal = new LinkedList<T>();
+		List<T> greater = new LinkedList<T>();
+
+		for (T x : list) {
+			if (x.compareTo(pivot) > 0)
+				greater.add(x);
+			else if (x.compareTo(pivot) < 0)
+				less.add(x);
+			else
+				equal.add(x);
+		}
+
+		less = quickSort(less);
+		greater = quickSort(greater);
+
+		less.addAll(equal);
+		less.addAll(greater);
+
+		return less;
+	}
 
 	/**
 	 * A simple, but inefficient (O(n^2)) sort.
@@ -30,10 +70,21 @@ public class Sorting {
 	 * Testing method
 	 */
 	public static void main(String[] args) {
-		int[] anArrayToSort = { 8, 15, -1, 22, 1, 5, 19, -17, 20, 3, 9, 0, -4 };
 
-		bubbleSort(anArrayToSort);
-		for (int n : anArrayToSort) {
+		int[] anArrayToSort = { 8, 15, -1, 22, 1, 5, 19, -17, 20, 3, 9, 0, -4,
+				22, 3, 77, 22, -13 };
+
+		List<Integer> aList = new ArrayList<Integer>();
+
+		for (int i = 0; i < anArrayToSort.length; i++) {
+			aList.add(anArrayToSort[i]);
+		}
+
+		Sorting<Integer> s = new Sorting<Integer>();
+
+		aList = s.quickSort(aList);
+
+		for (int n : aList) {
 			System.out.print(n + " ");
 		}
 
