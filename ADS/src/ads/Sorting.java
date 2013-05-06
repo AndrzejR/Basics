@@ -13,6 +13,16 @@ import java.util.List;
  */
 public class Sorting<T extends Comparable<T>> {
 
+//	public List<T> mergeSort(List<T> list){
+//		
+//	}
+//	
+//	private List<T> merge(int low, int middle, int high){
+//		
+//	}
+	
+	
+	
 	/**
 	 * Quicksort not in place. Fast, but this simpler version needs extra
 	 * memory.
